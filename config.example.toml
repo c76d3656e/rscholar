@@ -1,0 +1,129 @@
+# Rscholar Configuration
+# All API keys and settings are configured here.
+# Copy this file to config.toml and fill in your keys.
+
+[server]
+# Server bind address and port
+host = "127.0.0.1"
+port = 3000
+# Admin API routes switch (recommended: false on public deployments)
+admin_enabled = false
+
+[easyscholar]
+# EasyScholar API keys for journal ranking
+# Multiple keys can be provided for parallel requests (round-robin)
+# Get your key from: https://www.easyscholar.cc/
+keys = [
+    "YOUR_EASYSCHOLAR_KEY_1",
+    # "YOUR_EASYSCHOLAR_KEY_2",  # Optional: add more keys for faster processing
+]
+
+[ranking]
+# Ranking microservice scheduler/lease settings
+# queue_capacity: max queued pipeline jobs waiting for ranking
+# min_chunk/max_chunk: clamp range for one-shot key leasing per job
+# max_concurrent_jobs: max ranking jobs running in parallel (multi-active scheduler)
+queue_capacity = 128
+min_chunk = 5
+max_chunk = 32
+max_concurrent_jobs = 16
+
+[llm]
+# Primary provider name (must exist in [llm.registry.<name>] or legacy sections)
+default_provider = "siliconflow"
+
+# Enable LLM relevance filtering by default
+enable_filter = true
+
+# Strict mode for LLM filtering:
+# true  -> keep empty result if all papers are filtered out
+# false -> fallback to unfiltered results when filtering returns empty
+strict_filter = false
+
+# Optional explicit provider order (fallback sequence).
+# If empty, system resolves order from configured providers automatically.
+providers = ["siliconflow", "aiping", "bigmodel"]
+
+[llm.registry.bigmodel]
+# Required: API key must be provided (no built-in default key)
+api_key = "YOUR_BIGMODEL_KEY"
+model = "GLM-4.7-Flash"
+endpoint = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
+
+[llm.registry.aiping]
+# AIPing API (Qwen3-235B-A22B)
+# API docs: https://www.aiping.cn/
+# Required: API key must be provided (no built-in default key)
+api_key = "YOUR_AIPING_KEY"
+model = "Qwen3-235B-A22B"
+endpoint = "https://www.aiping.cn/api/v1/chat/completions"
+
+[llm.registry.siliconflow]
+# SiliconFlow API (Qwen, DeepSeek, etc.)
+# API docs: https://siliconflow.cn/
+# Required: API key must be provided (no built-in default key)
+api_key = "YOUR_SILICONFLOW_KEY"
+model = "Qwen/Qwen3-8B"
+endpoint = "https://api.siliconflow.cn/v1/chat/completions"
+
+[search]
+# Default year filter (papers from this year onwards)
+# Set to null to disable
+default_ylo = 2020
+
+# Enable Crossref metadata enrichment
+enable_crossref = true
+
+# Default enabled search sources is ALL sources.
+# Individual sources can be disabled below.
+
+# Legacy limit settings (prefer per-source settings below)
+ss_limit = 100
+oa_limit = 200
+
+[search.openalex]
+# OpenAlex Search
+enabled = true
+max_results = 200
+timeout_sec = 30
+
+[search.semanticscholar]
+# Semantic Scholar Search (Enrichment source)
+enabled = true
+max_results = 100
+timeout_sec = 30
+
+[search.arxiv]
+# arXiv query settings
+enabled = true
+max_results = 200
+page_size = 100
+sort_by = "relevance"
+sort_order = "descending"
+timeout_sec = 30
+request_delay_ms = 3000
+
+[search.pubmed]
+# PubMed E-utilities settings
+enabled = true
+# Without api_key => 3 rps; with api_key => up to 10 rps
+max_results = 200
+page_size = 100
+api_key = ""
+tool = "Rscholar"
+email = ""
+timeout_sec = 30
+delay_no_key_ms = 350
+delay_with_key_ms = 120
+
+[search.xrxiv]
+# bioRxiv / medRxiv settings (same API host, different server path)
+enabled = true
+biorxiv_max_results = 200
+medrxiv_max_results = 200
+start_date = "2020-01-01"
+end_date = ""
+timeout_sec = 30
+request_delay_ms = 500
+max_retries = 3
+

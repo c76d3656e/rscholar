@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RustScholar - 学术文献智能搜索与筛选平台">
+  <title>RustScholar - 学术文献搜索</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/index.css">
+</head>
+
+<body>
+  <!-- Sidebar for History -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <h3 class="sidebar-title">查询历史</h3>
+      <button id="sidebar-close" class="sidebar-close" aria-label="关闭">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div id="history-list" class="history-list">
+      <!-- History items will be inserted here -->
+    </div>
+    <div class="sidebar-footer">
+      <button id="clear-history" class="btn btn-small btn-outline">清空历史</button>
+    </div>
+  </aside>
+
+  <!-- Sidebar Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- Main Content -->
+  <main id="app">
+    <!-- Page content will be rendered here by router -->
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">RustScholar · 学术文献智能搜索平台</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
