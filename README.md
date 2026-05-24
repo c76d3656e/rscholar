@@ -1,7 +1,7 @@
 ﻿# Rscholar
 [English](./README.md) [中文](./README_zh.md)
 
-[Example web](https://scholar.c76d3656e.sbs/) : http://c76d.abrdns.com/ 
+[Example web](https://scholar.c76d3656e.sbs/) : https://scholar.c76d3656e.sbs/
 
 Rscholar is a Rust-based academic literature search service with asynchronous task execution, multi-source retrieval, metadata enrichment, ranking filters, and CSV/BibTeX export.
 
